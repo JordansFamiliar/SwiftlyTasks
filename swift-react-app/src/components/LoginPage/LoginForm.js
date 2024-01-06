@@ -19,9 +19,9 @@ function LoginForm() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login to Your Account</h2>
-      <form>
+      <form className="login-form">
         <TextField
           label="Email"
           type="email"

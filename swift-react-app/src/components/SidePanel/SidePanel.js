@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './SidePanel.css';
+import CalendarIcon from './icons/calendar.svg';
+import DashboardIcon from './icons/dashboard.svg';
+import GroupsIcon from './icons/groups.svg';
+import HomeIcon from './icons/home.svg';
+import ProfileIcon from './icons/profile.svg';
 
 function SidePanel({ currentPage, navigateTo }) {
   const [isPanelVisible, setPanelVisibility] = useState(false);
@@ -35,11 +40,11 @@ function SidePanel({ currentPage, navigateTo }) {
 
   // Define the icons or links for navigation
   const panelItems = [
-    { label: 'Home', icon: 'home', page: 'home' },
-    { label: 'Profile', icon: 'profile', page: 'profile' },
-    { label: 'Dashboard', icon: 'dashboard', page: 'dashboard' },
-    { label: 'Calendar', icon: 'calendar', page: 'calendar' },
-    { label: 'Groups', icon: 'groups', page: 'groups' },
+    { label: 'Home', icon: HomeIcon, page: 'home' },
+    { label: 'Profile', icon: ProfileIcon, page: 'profile' },
+    { label: 'Dashboard', icon: DashboardIcon, page: 'dashboard' },
+    { label: 'Calendar', icon: CalendarIcon, page: 'calendar' },
+    { label: 'Groups', icon: GroupsIcon, page: 'groups' },
     // Add more items as needed
   ];
 

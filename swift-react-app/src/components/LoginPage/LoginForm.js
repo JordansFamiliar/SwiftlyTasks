@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button } from "@mui/material';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -21,15 +22,29 @@ function LoginForm() {
     <div>
       <h2>Login to Your Account</h2>
       <form>
-        <label>Email:</label>
-        <input type="email" value={email} onChange={handleEmailChange} />
+        <TextField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+          variant="outlined"
+          margin="normal"
+          fullwidth
+        />
 
-        <label>Password:</label>
-        <input type="password" value={password} onChange={handlePasswordChange} />
+        <TextField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          variant="outlined"
+          margin="normal"
+          fullWidth
+        />
 
-        <button type="button" onClick={handleSignIn}>
+        <Button variant="contained" color="primary" onClick={handleSignIn} fullWidth>
           Sign In
-        </button>
+        </Button>
       </form>
     </div>
   );

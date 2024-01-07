@@ -1,6 +1,14 @@
 from django import forms
 from .models import User, Task, Group
 
+class UserLoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+            }
+
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User

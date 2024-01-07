@@ -42,6 +42,9 @@ function Header({ isLoggedIn }) {
               vertical: 'top',
               horizontal: 'right',
             }}
+            PaperProps={{
+              className: 'popover-paper',
+            }}
           >
             <div style={{ padding: '10px' }}>
               {notifications.map((notification) => (

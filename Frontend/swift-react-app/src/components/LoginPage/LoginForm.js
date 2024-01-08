@@ -13,10 +13,28 @@ function LoginForm() {
     setPassword(e.target.value);
   };
 
-  const handleSignIn = () => {
-    // Add logic to handle the sign-in action (e.g., send a request to the backend)
-    console.log('Sign in clicked');
+  const handleSignIn = async () => {
+    try {
+      const response = await fetch('/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        // Successful login, you might want to redirect or perform other actions
+        console.log('Login successful');
+      } else {
+      // Handle authentication failure
+      console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('An error occurred during login', error);
+    }
   };
+
 
   return (
     <div className="login-container">

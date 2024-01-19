@@ -1,28 +1,57 @@
 body {
   font-family: 'San Francisco', sans-serif;
   background-color: #f8f8f8;
-  color: #333;
+  color: #888;
 }
 
-.login-container {
-  max-width: 400px;
+.form-container {
+  width: 400px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: #f8f8f8;
+  align-self: center;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
-.login-form {
+.blur-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px);
+  z-index: 999;
+}
+
+.form {
   display: flex;
   flex-direction: column;
 }
 
-.MuiTextField-root {
-  margin-bottom: 16px;
+.form p {
+  margin-top: 2px !important;
 }
 
-.MuiButton-root {
-  margin-top: 16px;
+.form .MuiTextField-root {
+  margin-bottom: 2px !important;
+  margin-top: 5px !important;
+}
+
+.form .MuiButton-root {
+  margin-top: 16px !important;
+  padding: 10px 10px !important;
+}
+
+.form .MuiButton-root:hover {
+  background: white !important;
+  border: 1px solid black !important;
+  color: black !important;
 }

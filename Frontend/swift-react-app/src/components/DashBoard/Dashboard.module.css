@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.clear {
+  text-align: center;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  min-width: 400px;
+}
+
+.sortDropdownContainer {
+  min-width: 50px;
+}
+
+.headerRow .button {
+  padding: 8px;
+  margin-left: auto;
+  background-color: #000;
+  color: #888;
+}
+
+.headerRow .button:hover {
+  background-color: #888;
+  color: #000;
+}
+
+.sortLabel {
+  color: white;
+  font-size: 14px;
+  padding: 8px;
+  width: 80px;
+  text-align: right;
+}
+.sortDropdown {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #000;
+  color: #888;
+  font-size: 14px;
+  margin-right: auto;
+}
+
+.sortDropdown option {
+  background-color: #fff;
+  color: #333;
+}

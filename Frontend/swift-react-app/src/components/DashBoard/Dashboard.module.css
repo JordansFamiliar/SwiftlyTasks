@@ -3,6 +3,14 @@
   flex-direction: column;
 }
 
+.container .card {
+  width: 500px;
+  margin-bottom: 16px;
+  background-image: linear-gradient(0deg, black, #333);
+  position: relative;
+  transition: box-shadow 0s ease-in-out;
+}
+
 .clear {
   text-align: center;
 }
@@ -52,3 +60,4 @@
   background-color: #fff;
   color: #333;
 }
+

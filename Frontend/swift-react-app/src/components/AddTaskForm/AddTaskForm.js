@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../utils';
 import { useAuth } from '../../AuthContext';
 
-function AddTaskForm({ updateTasks, setPageHeading }) {
+function AddTaskForm({ updateTasks }) {
   const navigate = useNavigate();
   const { authenticated } = useAuth();
   const [task_name, setTaskName] = useState('');
@@ -19,13 +19,6 @@ function AddTaskForm({ updateTasks, setPageHeading }) {
   if (!authenticated) {
     navigate('/swiftlytasks/login/');
   }
-
-  useEffect(() => {
-    setPageHeading('Add Task');
-    return () => {
-      setPageHeading('');
-    };
-  }, [setPageHeading]);
 
   const handleCancel = () => {
     navigate('/swiftlytasks/dashboard/');
@@ -92,81 +85,85 @@ function AddTaskForm({ updateTasks, setPageHeading }) {
   return (
     <>
       <div className="blur-background"></div>
-      <div className="form-container">
-        <h2>Add Task</h2>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <form className="form">
-          <TextField
-            label="Task Name"
-            type="text"
-            value={task_name}
-            onChange={handleTaskNameChange}
-            variant="outlined"
-            margin="normal"
-            fullWidth={true}
-	    required
-          />
-          {buttonPressed && task_name === '' && (
-            <p style={{ color: 'red' }}>*Task Name is required.</p>
-          )}
-          <TextField
-            label="Description"
-            type="text"
-            value={description}
-            onChange={handleDescriptionChange}
-            variant="outlined"
-            margin="normal"
-            fullWidth={true}
-          />
+      <main>
+        <section id="center-column">
+          <div className="form-container">
+            <h2>Add Task</h2>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <form className="form">
+              <TextField
+                label="Task Name"
+                type="text"
+                value={task_name}
+                onChange={handleTaskNameChange}
+                variant="outlined"
+                margin="normal"
+                fullWidth={true}
+	        required
+              />
+              {buttonPressed && task_name === '' && (
+                <p style={{ color: 'red' }}>*Task Name is required.</p>
+              )}
+              <TextField
+                label="Description"
+                type="text"
+                value={description}
+                onChange={handleDescriptionChange}
+                variant="outlined"
+                margin="normal"
+                fullWidth={true}
+              />
 
-          <TextField
-            label="Priority"
-            type="number"
-            value={priority}
-            onChange={handlePriorityChange}
-            variant="outlined"
-            margin="normal"
-            fullWidth={true}
-	    required
-          />
-          {buttonPressed && priority === '' && (
-            <p style={{ color: 'red' }}>*Priority is required.</p>
-          )}
+              <TextField
+                label="Priority"
+                type="number"
+                value={priority}
+                onChange={handlePriorityChange}
+                variant="outlined"
+                margin="normal"
+                fullWidth={true}
+	        required
+              />
+              {buttonPressed && priority === '' && (
+                <p style={{ color: 'red' }}>*Priority is required.</p>
+              )}
 
-          <TextField
-            label="Due Date"
-            type="date"
-            value={due_date}
-            onChange={handleDueDateChange}
-            variant="outlined"
-            margin="normal"
-            fullWidth={true}
-	    InputLabelProps={{ shrink: true }}
-	    required
-          />
-          {buttonPressed && due_date === '' && (
-            <p style={{ color: 'red' }}>*Due Date is required.</p>
-          )}
+              <TextField
+                label="Due Date"
+                type="date"
+                value={due_date}
+                onChange={handleDueDateChange}
+                variant="outlined"
+                margin="normal"
+                fullWidth={true}
+	        InputLabelProps={{ shrink: true }}
+	        required
+              />
+              {buttonPressed && due_date === '' && (
+                <p style={{ color: 'red' }}>*Due Date is required.</p>
+              )}
 
-          <Button
-            variant="contained"
-            style={{ backgroundColor: '#000000' }}
-            onClick={handleAddTask}
-            fullWidth={true}
-          >
-            Add Task
-          </Button>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: '#000000' }}
-            onClick={handleCancel}
-            fullWidth={true}
-          >
-            Cancel
-          </Button>
-        </form>
-      </div>
-  </>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: '#000000' }}
+                onClick={handleAddTask}
+                fullWidth={true}
+              >
+                Add Task
+              </Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: '#000000' }}
+                onClick={handleCancel}
+                fullWidth={true}
+              >
+                Cancel
+              </Button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
 

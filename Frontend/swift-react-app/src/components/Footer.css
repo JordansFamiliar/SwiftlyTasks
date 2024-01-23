@@ -4,5 +4,6 @@
   color: white;
   text-align: center;
   padding: 10px;
+  z-index: 999;
 }
 

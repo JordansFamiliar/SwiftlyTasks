@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from '@mui/material/Button';
+import { Card, CardContent, Typography, Button } from '@mui/material';
 import TaskCard from './TaskCard';
 import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../utils';
 import { deleteTask, editTask, fetchTasks, setSortBy } from '../../redux/taskSlice';
-/*import { setSortBy, setTasks } from '../../redux/sortSlice';*/
 
-function Dashboard({ setPageHeading }) {
+
+function Dashboard() {
   const csrftoken = getCookie('csrftoken');
   const tasks = useSelector((state) => state.task.tasks);
   const sortOption = useSelector((state) => state.task.sortBy);
@@ -18,11 +18,8 @@ function Dashboard({ setPageHeading }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPageHeading('Dashboard');
-    return () => {
-      setPageHeading('');
-    };
-  }, [setPageHeading]);
+    document.title = "Dashboard | Swiftly Tasks";
+  }, []);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -80,30 +77,45 @@ function Dashboard({ setPageHeading }) {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.headerRow}>
-        <div className={styles.sortDropdownContainer}>
-          <label htmlFor="sortDropdown" className={styles.sortLabel}>
-            Sort By:
-          </label>
-          <select id="sortDropdown" className={styles.sortDropdown} onChange={handleSortChange} value={sortOption}>
-            <option value="priority-asc">Priority (Ascending)</option>
-            <option value="priority-desc">Priority (Descending)</option>
-            <option value="due-date">Due Date</option>
-          </select>
-        </div>
-        <Button variant="contained" color="primary" className={styles.button} onClick={handleAddTask}>
-          Add Task
-        </Button>
+    <>
+      <div className="heading-container">
+        <h1>Dashboard</h1>
       </div>
-      {tasks.length === 0 ? (
-        <h2 className={styles.clear}>All Clear!</h2>
-      ) : (
-        tasks.map((task) => (
-          <TaskCard key={task.id} task={task} onDelete={deleteTaskHandler} onEdit={editTaskHandler} />
-        ))
-      )}
-    </div>
+      <main>
+        <section id="center-column">
+          <div className={styles.container}>
+            <div className={styles.headerRow}>
+              <div className={styles.sortDropdownContainer}>
+                <label htmlFor="sortDropdown" className={styles.sortLabel}>
+                  Sort By:
+                </label>
+                <select id="sortDropdown" className={styles.sortDropdown} onChange={handleSortChange} value={sortOption}>
+                  <option value="priority-asc">Priority (Ascending)</option>
+                  <option value="priority-desc">Priority (Descending)</option>
+                  <option value="due-date">Due Date</option>
+                </select>
+              </div>
+              <Button variant="contained" color="primary" className={styles.button} onClick={handleAddTask}>
+                Add Task
+              </Button>
+            </div>
+            {tasks.length === 0 ? (
+	      <Card className={styles.card}>
+		<CardContent className={styles.cardContent}>
+                  <Typography variant="h2" className={styles.clear}>
+		    All Clear!
+		  </Typography>
+		</CardContent>
+	      </Card>
+            ) : (
+              tasks.map((task) => (
+                <TaskCard key={task.id} task={task} onDelete={deleteTaskHandler} onEdit={editTaskHandler} />
+              ))
+            )}
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
 

@@ -32,6 +32,7 @@
   background-color: #000000;
   padding: 20px;
   display: flex;
+  z-index: 999;
   justify-content: space-between; /* Align items horizontally with space between them */
   align-items: center; /* Center items vertically within the container */
 }

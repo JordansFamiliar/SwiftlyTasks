@@ -56,7 +56,7 @@ function Header() {
 
   return (
     <div className="header">
-      <h1>SWIFTLY TASKS</h1>
+      <h1><a href="/swiftlytasks">SWIFTLY TASKS</a></h1>
       {authenticated && (
         <div className="notification-icon">
           <IconButton onClick={handleIconClick} color="inherit">

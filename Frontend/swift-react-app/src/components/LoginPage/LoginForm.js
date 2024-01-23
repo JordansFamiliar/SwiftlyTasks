@@ -60,47 +60,51 @@ function LoginForm() {
   };
 
   return (
-    <div className="form-container">
-      <h2>Login to Your Account</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form className="form">
-        <TextField
-          label="Email"
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          variant="outlined"
-          margin="normal"
-          fullWidth={true}
-	  required
-        />
-        {buttonPressed && email === '' && (
-          <p style={{ color: 'red' }}>*Email is required.</p>
-        )}
+    <main>
+      <section id="center-column">
+        <div className="form-container">
+          <h2>Login to Your Account</h2>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <form className="form">
+            <TextField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              variant="outlined"
+              margin="normal"
+              fullWidth={true}
+	      required
+            />
+            {buttonPressed && email === '' && (
+              <p style={{ color: 'red' }}>*Email is required.</p>
+            )}
 
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          variant="outlined"
-          margin="normal"
-          fullWidth={true}
-	  required
-        />
-        {buttonPressed && password === '' && (
-          <p style={{ color: 'red' }}>*Password is required.</p>
-        )}
-        <Button
-          variant="contained"
-          style={{ backgroundColor: '#000000' }}
-          onClick={handleSignIn}
-          fullWidth={true}
-        >
-          Sign In
-        </Button>
-      </form>
-    </div>
+            <TextField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              variant="outlined"
+              margin="normal"
+              fullWidth={true}
+	      required
+            />
+            {buttonPressed && password === '' && (
+              <p style={{ color: 'red' }}>*Password is required.</p>
+            )}
+            <Button
+              variant="contained"
+              style={{ backgroundColor: '#000000' }}
+              onClick={handleSignIn}
+              fullWidth={true}
+            >
+              Sign In
+            </Button>
+          </form>
+        </div>
+      </section>
+    </main>
   );
 }
 

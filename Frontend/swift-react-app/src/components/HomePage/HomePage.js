@@ -12,7 +12,10 @@ function HomePage() {
 	  </h1>
         </div>
         <div className="container-right">
-	  <h1 className=""
+	  <h1>Prioritise</h1>
+	  <h1>Stay up to date</h1>
+	  <h1>Increase your productivity</h1>
+	  <h1>Manage your team</h1>
         </div>
       </main>
     </>

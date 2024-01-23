@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../utils';
 import { useAuth } from '../../AuthContext';
 
-function AddTaskForm({ updateTasks }) {
+function AddTaskForm() {
   const navigate = useNavigate();
   const { authenticated } = useAuth();
   const [task_name, setTaskName] = useState('');
@@ -70,7 +70,6 @@ function AddTaskForm({ updateTasks }) {
 
       if (responseData.success) {
         console.log('Added new task');
-        updateTasks(newTask);
         navigate('/swiftlytasks/dashboard/');
       } else {
         console.error("Couldn't add new task");

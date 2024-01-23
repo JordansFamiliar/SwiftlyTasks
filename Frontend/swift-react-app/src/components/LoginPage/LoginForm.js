@@ -5,21 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
 
-function LoginForm({ onLogin, setPageHeading }) {
-  const { login } = useAuth();
+function LoginForm() {
+  const login = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
   const csrftoken = getCookie('csrftoken');
-
-  /*useEffect(() => {
-    setPageHeading('Login');
-    return () => {
-      setPageHeading('');
-    };
-  }, [setPageHeading]);*/
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

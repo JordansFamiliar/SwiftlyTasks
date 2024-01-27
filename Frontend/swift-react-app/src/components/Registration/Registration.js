@@ -4,7 +4,7 @@ import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import './Registration.css';
 
-function Registration({ setPageHeading }) {
+function Registration() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -13,13 +13,6 @@ function Registration({ setPageHeading }) {
   const [buttonPressed, setButtonPressed] = useState(false);
 
   const csrftoken = getCookie('csrftoken');
-
-  /*useEffect (() => {
-    setPageHeading('Register');
-    return () => {
-      setPageHeading('');
-    };
-  }, [setPageHeading]);*/
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -44,7 +37,7 @@ function Registration({ setPageHeading }) {
         return;
       }
 
-      const response = await fetch('http://localhost:8000/swiftlytasks/register/', {
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

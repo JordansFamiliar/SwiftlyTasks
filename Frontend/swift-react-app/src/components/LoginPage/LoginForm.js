@@ -32,7 +32,7 @@ function LoginForm() {
         return;
       }
 
-      const response = await fetch('http://localhost:8000/swiftlytasks/login/', {
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

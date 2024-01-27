@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-7(%&yly)#fmn1*h$0n#d7hs+i3z^$z0vpou)(h-^(b+9ssq4&9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'swiftly-tasks.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://swiftly-tasks.netlify.app']
@@ -140,7 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     # Update this list with the origins of your React app
     "http://localhost:3000",
-    "https://swiftly-tasks.netlify.app/",
+    "https://swiftly-tasks.netlify.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

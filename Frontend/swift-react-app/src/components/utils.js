@@ -1,4 +1,3 @@
-// utils.js
 // eslint-disable-next-line
 export const getCookie = (name) => {
   let cookieValue = null;

@@ -1,5 +1,0 @@
-[build]
-  functions ="functions-build"
-
-[build.environment]
-  REACT_APP_BACKEND_API = "/.netlify/functions"

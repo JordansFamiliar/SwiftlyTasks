@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-7(%&yly)#fmn1*h$0n#d7hs+i3z^$z0vpou)(h-^(b+9ssq4&9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://swiftly-tasks.netlify.app']
@@ -89,13 +89,16 @@ DATABASES = {
     }
 }
 
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+    DATABASE['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'], conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = "swiftlytasks.CustomUser"
 
 AUTHENTICATION_BACKENDS = (
-    'swiftlytasks.backends.EmailBackend',  
+    'swiftlytasks.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -141,6 +144,7 @@ CORS_ALLOWED_ORIGINS = [
     # Update this list with the origins of your React app
     "http://localhost:3000",
     "https://swiftly-tasks.netlify.app",
+    "https://swiftly-tasks.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

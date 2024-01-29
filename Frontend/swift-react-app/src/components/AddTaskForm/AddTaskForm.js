@@ -56,7 +56,7 @@ function AddTaskForm() {
         setError('Please fill in all required fields.');
         return;
       }
-      const response = await fetch('https://swiftly-tasks.vercel/api/add_task/',{
+      const response = await fetch('https://swiftly-tasks.vercel/api/add_task',{
         method: 'POST',
         headers: {
 	  'Content-Type': 'application/json',

@@ -37,7 +37,7 @@ function Registration() {
         return;
       }
 
-      const response = await fetch('https://swiftly-tasks.vercel.app/api/register/', {
+      const response = await fetch('https://swiftly-tasks.vercel.app/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

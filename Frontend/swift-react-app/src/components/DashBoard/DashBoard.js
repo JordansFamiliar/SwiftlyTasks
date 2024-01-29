@@ -34,7 +34,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchTasksFromServer = async () => {
       try {
-        const response = await fetch('https://swiftly-tasks.vercel.app/api/dashboard/', {
+        const response = await fetch('https://swiftly-tasks.vercel.app/api/dashboard', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

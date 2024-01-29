@@ -10,7 +10,7 @@ function TaskCard({ task, onDelete, onEdit }) {
 
   const handleCheckButtonClick = async () => {
     try {
-      const response = await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/delete_task/${task.id}/`,{
+      const response = await fetch(`https://swiftly-tasks.vercel.app/api/delete_task/${task.id}/`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

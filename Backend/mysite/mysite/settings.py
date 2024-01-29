@@ -137,11 +137,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    # Update this list with the origins of your React app
-    "http://localhost:3000",
-    "https://swiftly-tasks.netlify.app",
-    "https://swiftly-tasks.vercel.app",
-]
+CORS_ALLOWED_ORIGINS = ['*']
 
 CORS_ALLOW_CREDENTIALS = True

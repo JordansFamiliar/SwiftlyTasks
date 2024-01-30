@@ -156,5 +156,5 @@ CORS_ALLOWED_HEADERS = [
     'Content-Type',
     'Date',
     'X-Api-Version',
-    'X-Xsrf-Token',
+    'x-xsrf-token',
 ]

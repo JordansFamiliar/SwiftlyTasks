@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+//import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
-  const csrftoken = getCookie('csrftoken');
+  //const csrftoken = getCookie('csrftoken');
+  const csrftoken = Cookies.get('csrftoken');
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

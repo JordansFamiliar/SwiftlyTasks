@@ -83,6 +83,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mysite.wsgi.app'
 
 CSRF_HEADER_NAME = 'HTTP_X_XSRF_TOKEN'
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -155,5 +156,5 @@ CORS_ALLOWED_HEADERS = [
     'Content-Type',
     'Date',
     'X-Api-Version',
-    'X-XSRF-TOKEN',
+    'X-Xsrf-Token',
 ]

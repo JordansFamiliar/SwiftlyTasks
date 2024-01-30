@@ -35,11 +35,11 @@ function Registration() {
         return;
       }
 
-      const response = await fetch('https://swiftly-tasks.vercel.app/register/', {
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/register/').headers),
+	  'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/register/').headers),
         },
         body: JSON.stringify({ username, email, password }),
 	credentials: 'include'

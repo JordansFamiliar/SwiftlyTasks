@@ -16,7 +16,7 @@ def index(request):
 
 @ensure_csrf_cookie
 def CustomLoginView(request):
-    template = loader.get_template("swiftlytasks/login.html")
+    template = loader.get_template("swiftlytasks/base.html")
 
     if request.method == 'POST':
         try:
@@ -40,7 +40,7 @@ def CustomLoginView(request):
 
 @ensure_csrf_cookie
 def user_registration(request):
-    template = loader.get_template("swiftlytasks/register.html")
+    template = loader.get_template("swiftlytasks/base.html")
 
     if request.method == 'POST':
         try:
@@ -63,7 +63,7 @@ def user_registration(request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
 
-    return render(request, 'register.html')
+    return render(request, 'base.html')
 
 @login_required
 def create_task(request):
@@ -92,7 +92,7 @@ def create_task(request):
 
         return JsonResponse({'success': True, 'message': 'Task created successfully.'})
 
-    return render(request, 'add_task.html')
+    return render(request, 'base.html')
 
 @login_required
 def dashboard(request):
@@ -129,4 +129,4 @@ def edit_task(request, task_id):
             return JsonResponse({'success': True, 'message': 'Task updated successfully'})
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
-    return render(request, 'edit_task.html')
+    return render(request, 'base.html')

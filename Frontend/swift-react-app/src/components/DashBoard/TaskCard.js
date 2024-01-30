@@ -9,11 +9,11 @@ function TaskCard({ task, onDelete, onEdit }) {
 
   const handleCheckButtonClick = async () => {
     try {
-      const response = await fetch(`https://swiftly-tasks.vercel.app/delete_task/${task.id}/`,{
+      const response = await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/delete_task/${task.id}/`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch(`https://swiftly-tasks.vercel.app/delete_task/${task.id}/`).headers),
+          'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/delete_task/${task.id}/`).headers),
         },
         credentials: 'include',
       });

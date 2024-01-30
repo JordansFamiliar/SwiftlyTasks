@@ -54,11 +54,11 @@ function AddTaskForm() {
         setError('Please fill in all required fields.');
         return;
       }
-      const response = await fetch('https://swiftly-tasks.vercel/add_task/',{
+      const response = await fetch('https://swiftly-tasks.vercel/swiftlytasks/add_task/',{
         method: 'POST',
         headers: {
 	  'Content-Type': 'application/json',
-	  'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel/add_task/').headers),
+	  'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel/swiftlytasks/add_task/').headers),
         },
         body: JSON.stringify(newTask),
         credentials: 'include'

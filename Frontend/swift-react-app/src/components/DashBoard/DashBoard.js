@@ -33,11 +33,11 @@ function Dashboard() {
   useEffect(() => {
     const fetchTasksFromServer = async () => {
       try {
-        const response = await fetch('https://swiftly-tasks.vercel.app/dashboard/', {
+        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/dashboard/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/dashboard/').headers),
+            'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/dashboard/').headers),
           },
           credentials: 'include',
         });

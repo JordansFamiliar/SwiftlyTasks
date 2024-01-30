@@ -31,11 +31,11 @@ function LoginForm() {
         return;
       }
 
-      const response = await fetch('https://swiftly-tasks.vercel.app/login/', {
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-CSRFToken': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/login/').headers),
+	  'X-CSRFToken': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/').headers),
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

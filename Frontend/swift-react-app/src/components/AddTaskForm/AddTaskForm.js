@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { getCSRFTokenFromHeaders } from '../utils';
+import { getCookie } from '../utils';
 import { useAuth } from '../../AuthContext';
 
 function AddTaskForm() {
@@ -13,6 +13,7 @@ function AddTaskForm() {
   const [due_date, setDueDate] = useState('');
   const [error, setError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
+  const csrftoken = getCookie('csrftoken');
 
   if (!authenticated) {
     navigate('/swiftlytasks/login/');
@@ -58,7 +59,7 @@ function AddTaskForm() {
         method: 'POST',
         headers: {
 	  'Content-Type': 'application/json',
-	  'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel/swiftlytasks/add_task/').headers),
+	  'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify(newTask),
         credentials: 'include'

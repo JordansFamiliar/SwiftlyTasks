@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCSRFTokenFromHeaders } from '../utils';
+import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import './Registration.css';
 
 function Registration() {
+  const csrftoken = getCookie('csrftoken');
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -39,7 +40,7 @@ function Registration() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/register/').headers),
+	  'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify({ username, email, password }),
 	credentials: 'include'

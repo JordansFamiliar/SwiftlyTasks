@@ -4,12 +4,11 @@ import { Card, CardContent, Typography, Button } from '@mui/material';
 import TaskCard from './TaskCard';
 import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { getCookie } from '../utils';
+import { getCSRFTokenFromHeaders } from '../utils';
 import { deleteTask, editTask, fetchTasks, setSortBy } from '../../redux/taskSlice';
 
 
 function Dashboard() {
-  const csrftoken = getCookie('csrftoken');
   const tasks = useSelector((state) => state.task.tasks);
   const sortOption = useSelector((state) => state.task.sortBy);
   const dispatch = useDispatch();
@@ -38,7 +37,7 @@ function Dashboard() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
+            'X-CSRF-Token': getCSRFTokenFromHeaders(response.headers),
           },
           credentials: 'include',
         });

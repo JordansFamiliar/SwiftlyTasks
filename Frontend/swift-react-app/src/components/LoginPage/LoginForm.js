@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+import { getCSRFTokenFromHeaders } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
@@ -12,7 +12,6 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
-  const csrftoken = getCookie('csrftoken');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,7 +35,7 @@ function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-CSRFToken': csrftoken,
+	  'X-CSRFToken': getCSRFTokenFromHeaders(response.headers),
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

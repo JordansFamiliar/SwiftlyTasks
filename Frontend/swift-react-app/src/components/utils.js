@@ -14,3 +14,8 @@ export const getCookie = (name) => {
   }
   return cookieValue;
 };
+
+export const getCSRFTokenFromHeaders = (headers) => {
+  const csrfTokenHeader = headers.get('X-CSRF-Token');
+  return csrfTokenHeader ? csrfTokenHeader : null;
+};

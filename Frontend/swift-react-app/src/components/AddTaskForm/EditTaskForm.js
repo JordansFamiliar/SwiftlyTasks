@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+import { getCSRFTokenFromHeaders } from '../utils';
 
 function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
   const [editedTask, setEditedTask] = useState({...task});
   const [error, setError] = useState(null);
-  const csrftoken = getCookie('csrftoken');
 
   const handleTaskNameChange = (e) => {
     setEditedTask((prev) => ({ ...prev, task_name: e.target.value }));
@@ -29,7 +28,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken,
+          'X-CSRFToken': getCSRFTokenFromHeaders(response.headers),
         },
         body: JSON.stringify(editedTask),
         credentials: 'include',

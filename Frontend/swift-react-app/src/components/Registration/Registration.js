@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+import { getCSRFTokenFromHeaders } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import './Registration.css';
 
@@ -11,8 +11,6 @@ function Registration() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
-
-  const csrftoken = getCookie('csrftoken');
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -41,7 +39,7 @@ function Registration() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-CSRFToken': csrftoken,
+	  'X-CSRF-Token': getCSRFTokenFromHeaders(response.headers),
         },
         body: JSON.stringify({ username, email, password }),
 	credentials: 'include'

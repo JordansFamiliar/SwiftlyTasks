@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import styles from './TaskCard.module.css';
-import { getCookie } from '../utils';
+import { getCSRFTokenFromHeaders } from '../utils';
 import EditTaskForm from '../AddTaskForm/EditTaskForm';
 
 function TaskCard({ task, onDelete, onEdit }) {
-  const csrftoken = getCookie('csrftoken');
   const [isEditing, setIsEditing] = useState(false);
 
   const handleCheckButtonClick = async () => {
@@ -14,7 +13,7 @@ function TaskCard({ task, onDelete, onEdit }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken,
+          'X-CSRF-Token': getCSRFTokenFromHeaders(response.headers),
         },
         credentials: 'include',
       });

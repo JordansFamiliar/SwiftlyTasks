@@ -146,7 +146,7 @@ CORS_ALLOWED_ORIGINS = ['https://swiftly-tasks.netlify.app']
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_HEADERS = [
+CORS_ALLOW_HEADERS = [
     'X-CSRFToken',
     'X-Requested-With',
     'Accept',

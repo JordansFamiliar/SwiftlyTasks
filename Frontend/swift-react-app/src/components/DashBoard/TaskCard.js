@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import styles from './TaskCard.module.css';
-import { getCSRFTokenFromHeaders } from '../utils';
+import { getCookie } from '../utils';
 import EditTaskForm from '../AddTaskForm/EditTaskForm';
 
 function TaskCard({ task, onDelete, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
+  const csrftoken = getCookie('csrftoken');
 
   const handleCheckButtonClick = async () => {
     try {
@@ -13,7 +14,7 @@ function TaskCard({ task, onDelete, onEdit }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/delete_task/${task.id}/`).headers),
+          'X-CSRFToken': csrftoken,
         },
         credentials: 'include',
       });

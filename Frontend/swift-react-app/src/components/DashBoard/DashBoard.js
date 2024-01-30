@@ -4,11 +4,12 @@ import { Card, CardContent, Typography, Button } from '@mui/material';
 import TaskCard from './TaskCard';
 import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { getCSRFTokenFromHeaders } from '../utils';
+import { getCookie } from '../utils';
 import { deleteTask, editTask, fetchTasks, setSortBy } from '../../redux/taskSlice';
 
 
 function Dashboard() {
+  const csrftoken = getCookie('csrftoken');
   const tasks = useSelector((state) => state.task.tasks);
   const sortOption = useSelector((state) => state.task.sortBy);
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function Dashboard() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/dashboard/').headers),
+            'X-CSRFToken': csrftoken,
           },
           credentials: 'include',
         });
@@ -55,7 +56,7 @@ function Dashboard() {
         fetchTasksFromServer();
       }
     }
-  }, [navigate, authenticated, loading, dispatch]);
+  }, [csrftoken, navigate, authenticated, loading, dispatch]);
 
   const deleteTaskHandler = (deletedTask) => {
     dispatch(deleteTask({ deletedTask }));

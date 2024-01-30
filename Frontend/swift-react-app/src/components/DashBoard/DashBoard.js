@@ -37,7 +37,7 @@ function Dashboard() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-Token': getCSRFTokenFromHeaders(response.headers),
+            'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/dashboard/').headers),
           },
           credentials: 'include',
         });

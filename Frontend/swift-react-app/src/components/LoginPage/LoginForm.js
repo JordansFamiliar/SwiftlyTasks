@@ -35,7 +35,7 @@ function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-CSRFToken': getCSRFTokenFromHeaders(response.headers),
+	  'X-CSRFToken': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/login/').headers),
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

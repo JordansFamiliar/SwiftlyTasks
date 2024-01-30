@@ -58,7 +58,7 @@ function AddTaskForm() {
         method: 'POST',
         headers: {
 	  'Content-Type': 'application/json',
-	  'X-CSRF-Token': getCSRFTokenFromHeaders(response.headers),
+	  'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel/add_task/').headers),
         },
         body: JSON.stringify(newTask),
         credentials: 'include'

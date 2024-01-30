@@ -13,7 +13,7 @@ function TaskCard({ task, onDelete, onEdit }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFTokenFromHeaders(response.headers),
+          'X-CSRF-Token': getCSRFTokenFromHeaders(await fetch(`https://swiftly-tasks.vercel.app/delete_task/${task.id}/`).headers),
         },
         credentials: 'include',
       });

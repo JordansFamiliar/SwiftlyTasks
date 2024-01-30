@@ -28,7 +28,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': getCSRFTokenFromHeaders(response.headers),
+          'X-CSRFToken': getCSRFTokenFromHeaders(await fetch(`https://swiftly-tasks.vercel.app/edit_task/${task.id}/`).headers),
         },
         body: JSON.stringify(editedTask),
         credentials: 'include',

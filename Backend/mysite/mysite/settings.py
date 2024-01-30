@@ -144,3 +144,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = ['https://swiftly-tasks.netlify.app']
 
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_HEADERS = [
+    'X-CSRFToken',
+    'X-Requested-With',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Content-Type',
+    'Date',
+    'X-Api-Version',
+    'X-XSRF-TOKEN',
+]

@@ -26,8 +26,6 @@ def CustomLoginView(request):
 
             user = authenticate(request, username=email, password=password)
 
-            print(f"the user: {user}")
-
             if user is not None:
                 login(request, user)
                 return JsonResponse({'success': True, 'message': 'Login successful'})
@@ -36,7 +34,7 @@ def CustomLoginView(request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
 
-    return HttpResponse(template.render())
+    return JsonResponse({'success': False, 'message': request.method})
 
 @ensure_csrf_cookie
 def user_registration(request):

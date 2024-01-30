@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://swiftly-tasks.netlify.app']
 
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 
 # Application definition
 

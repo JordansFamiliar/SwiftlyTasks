@@ -55,7 +55,7 @@ function Dashboard() {
         fetchTasksFromServer();
       }
     }
-  }, [csrftoken, navigate, authenticated, loading, dispatch]);
+  }, [navigate, authenticated, loading, dispatch]);
 
   const deleteTaskHandler = (deletedTask) => {
     dispatch(deleteTask({ deletedTask }));

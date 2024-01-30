@@ -24,6 +24,7 @@ function LoginForm() {
     setError('');
   };
 
+  console.log(csrftoken);
   const handleSignIn = async () => {
     try {
       setButtonPressed(true);

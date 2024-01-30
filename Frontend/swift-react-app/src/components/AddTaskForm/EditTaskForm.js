@@ -30,7 +30,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken,
+          'X-XSRF-TOKEN': csrftoken,
         },
         body: JSON.stringify(editedTask),
         credentials: 'include',

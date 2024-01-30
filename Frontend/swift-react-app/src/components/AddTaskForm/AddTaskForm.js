@@ -59,7 +59,7 @@ function AddTaskForm() {
         method: 'POST',
         headers: {
 	  'Content-Type': 'application/json',
-	  'X-CSRFToken': csrftoken,
+	  'X-XSRF-TOKEN': csrftoken,
         },
         body: JSON.stringify(newTask),
         credentials: 'include'

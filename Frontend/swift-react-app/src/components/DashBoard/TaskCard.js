@@ -14,7 +14,7 @@ function TaskCard({ task, onDelete, onEdit }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken,
+          'X-XSRF-TOKEN': csrftoken,
         },
         credentials: 'include',
       });

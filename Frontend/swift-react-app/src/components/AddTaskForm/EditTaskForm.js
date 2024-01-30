@@ -25,7 +25,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
 
   const handleEditTask = async () => {
     try {
-      const response = await fetch(`https://swiftly-tasks.vercel.app/api/edit_task/${task.id}`, {
+      const response = await fetch(`https://swiftly-tasks.vercel.app/edit_task/${task.id}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

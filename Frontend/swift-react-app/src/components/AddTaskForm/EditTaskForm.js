@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+import { getCSRFTokenFromHeaders } from '../utils';
 
 function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
   const [editedTask, setEditedTask] = useState({...task});
@@ -22,15 +22,13 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
     setEditedTask((prev) => ({ ...prev, due_date: e.target.value }));
   };
 
-  const csrftoken = getCookie('csrftoken');
-
   const handleEditTask = async () => {
     try {
       const response = await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/edit_task/${task.id}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken,
+          'X-CSRFToken': getCSRFTokenFromHeaders(await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/edit_task/${task.id}/`).headers),
         },
         body: JSON.stringify(editedTask),
         credentials: 'include',

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+import { getCSRFTokenFromHeaders } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
-  const csrftoken = getCookie('csrftoken');
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +35,7 @@ function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-CSRFToken': csrftoken,
+	  'X-CSRFToken': getCSRFTokenFromHeaders(await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/').headers),
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

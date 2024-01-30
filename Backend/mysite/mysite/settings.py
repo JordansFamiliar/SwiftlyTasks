@@ -141,6 +141,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['*']
+CORS_ALLOWED_ORIGINS = ['https://swiftly-tasks.netlify.app']
 
 CORS_ALLOW_CREDENTIALS = True

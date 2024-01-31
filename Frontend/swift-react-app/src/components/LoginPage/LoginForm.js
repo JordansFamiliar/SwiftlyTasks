@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 //import Cookies from 'js-cookie';
-import { getCookie } from '../utils';
+//import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
+  const [csrftoken, setCsrftoken] = useState('');
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,17 +27,19 @@ function LoginForm() {
 
   const getCSRFToken = async () => {
     try {
-      await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
 	method: 'GET',
 	credentials: 'include'
       });
+
+      const responseData = await response.json();
+
+      setCsrftoken(responseData.message);
 
     } catch (error) {
       console.error('Error retrieving CSRF token:', error);
     }
   };
-
-  const csrftoken = getCookie('csrftoken');
 
   const handleSignIn = async () => {
     try {

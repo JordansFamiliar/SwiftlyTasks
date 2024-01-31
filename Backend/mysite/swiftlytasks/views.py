@@ -34,7 +34,7 @@ def CustomLoginView(request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
 
-    return JsonResponse({'success': False, 'message': request.method})
+    return JsonResponse({'success': False, 'message': request.COOKIES.get('csrftoken', '')})
 
 @ensure_csrf_cookie
 def user_registration(request):

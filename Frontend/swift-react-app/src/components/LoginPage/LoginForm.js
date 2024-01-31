@@ -28,7 +28,7 @@ function LoginForm() {
 
   const getCSRFToken = async () => {
     try {
-      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+      await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
 	method: 'GET',
 	credentials: 'include'
       });

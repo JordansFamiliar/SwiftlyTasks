@@ -8,7 +8,7 @@ import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
-  const csrftoken = getCookie('csrftoken');
+  const [csrftoken, setCsrftoken] = useState('');
   //const csrftoken = Cookies.get('csrftoken');
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -26,7 +26,20 @@ function LoginForm() {
     setError('');
   };
 
-  console.log(csrftoken);
+  const getCSRFToken = async () => {
+    try {
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+	method: 'GET',
+	credentials: 'include'
+      });
+
+    setCsrftoken(getCookie('csrftoken'));
+
+    } catch (error) {
+      console.error('Error retrieving CSRF token': error);
+    }
+  };
+
   const handleSignIn = async () => {
     try {
       setButtonPressed(true);
@@ -34,6 +47,8 @@ function LoginForm() {
         setError('Please fill in all required fields.');
         return;
       }
+
+      await getCSRFToken();
 
       const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
         method: 'POST',

@@ -9,8 +9,6 @@ import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
-// eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,8 +36,10 @@ function LoginForm() {
       console.error('Error retrieving CSRF token:', error);
     }
   };
+// eslint-disable-next-line no-unused-vars
+  const [cookies, setCookie, removeCookie] = useCookies(["csrftoken"]);
 
-  const csrftoken = cookies.get('csrftoken');
+  const csrftoken = cookies.csrftoken;
 
   console.log("cookie:", csrftoken);
 

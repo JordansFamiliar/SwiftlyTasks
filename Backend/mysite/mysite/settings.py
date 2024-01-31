@@ -31,8 +31,8 @@ ALLOWED_HOSTS = ['.vercel.app']
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = False #'None'
-SESSION_COOKIE_SAMESITE = False #'None'
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://swiftly-tasks.netlify.app']
 

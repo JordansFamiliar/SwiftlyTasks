@@ -36,7 +36,7 @@ function LoginForm() {
     setCsrftoken(getCookie('csrftoken'));
 
     } catch (error) {
-      console.error('Error retrieving CSRF token': error);
+      console.error('Error retrieving CSRF token:', error);
     }
   };
 

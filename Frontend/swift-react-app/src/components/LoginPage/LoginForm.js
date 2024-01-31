@@ -37,7 +37,7 @@ function LoginForm() {
     };
 
     fetchData();
-  }, [csrftoken, buttonPressed]);
+  }, [csrftoken, buttonPressed, handleSignIn]);
 
   const handleSignIn = async () => {
     try {

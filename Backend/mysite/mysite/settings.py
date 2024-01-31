@@ -29,11 +29,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app']
 
-SESSION_COOKIE_SAMESITE = False
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://swiftly-tasks.netlify.app']
-
-CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -62,8 +63,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'mysite.urls'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-
-SESSION_COOKIE_SECURE = False
 
 TEMPLATES = [
     {

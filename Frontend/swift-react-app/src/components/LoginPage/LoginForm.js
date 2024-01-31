@@ -47,7 +47,7 @@ function LoginForm() {
       console.error('An error occurred during login', error);
       setError('An unexpected error occurred');
     }
-  }, [csrftoken, email, password, login, navigate]);
+  }, [csrftoken, login, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {

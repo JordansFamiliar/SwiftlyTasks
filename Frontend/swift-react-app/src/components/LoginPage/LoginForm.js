@@ -36,12 +36,6 @@ function LoginForm() {
       console.error('Error retrieving CSRF token:', error);
     }
   };
-// eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies(["csrftoken"]);
-
-  const csrftoken = cookies.csrftoken;
-
-  console.log("cookie:", csrftoken);
 
   const handleSignIn = async () => {
     try {
@@ -57,7 +51,7 @@ function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-XSRF-TOKEN': csrftoken,
+	  //'X-XSRF-TOKEN': csrftoken,
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

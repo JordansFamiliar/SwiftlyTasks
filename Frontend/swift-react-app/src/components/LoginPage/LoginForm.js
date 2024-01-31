@@ -16,62 +16,10 @@ function LoginForm() {
   const [buttonPressed, setButtonPressed] = useState(false);
 
   useEffect(() => {
-    const handleSignIn = async () => {
-      try {
-        setButtonPressed(true);
-        if (!email || !password) {
-          setError('Please fill in all required fields.');
-          return;
-        }
-
-        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-          },
-          body: JSON.stringify({ email, password }),
-          credentials: 'include'
-        });
-
-        const responseData = await response.json();
-
-        if (responseData.success) {
-          console.log('Login successful');
-          localStorage.setItem('authenticated', 'true');
-          login();
-          navigate('/swiftlytasks/dashboard/');
-          setError('');
-        } else {
-          setError(responseData.message);
-        }
-      } catch (error) {
-        console.error('An error occurred during login', error);
-        setError('An unexpected error occurred');
-      }
-    };
-
-    // Check if csrftoken is not an empty string before initiating the sign-in request
-    if (csrftoken !== '') {
-      handleSignIn();
-    }
-  }, [csrftoken, email, password, login, navigate]);
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    setError('');
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    setError('');
-  };
-
-  const getCSRFToken = async () => {
     try {
       const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
-	method: 'GET',
-	credentials: 'include'
+        method: 'GET',
+        credentials: 'include'
       });
 
       const responseData = await response.json();
@@ -81,6 +29,56 @@ function LoginForm() {
     } catch (error) {
       console.error('Error retrieving CSRF token:', error);
     }
+
+    // Check if csrftoken is not an empty string before initiating the sign-in request
+    if (csrftoken !== '') {
+      handleSignIn();
+    }
+  }, [csrftoken, buttonPressed]);
+
+  const handleSignIn = async () => {
+    try {
+      if (!email || !password) {
+        setError('Please fill in all required fields.');
+        return;
+      }
+
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success) {
+        console.log('Login successful');
+        localStorage.setItem('authenticated', 'true');
+        login();
+        navigate('/swiftlytasks/dashboard/');
+        setError('');
+      } else {
+        setError(responseData.message);
+      }
+    } catch (error) {
+      console.error('An error occurred during login', error);
+      setError('An unexpected error occurred');
+    }
+  };
+
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setError('');
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setError('');
   };
 
   return (
@@ -120,7 +118,7 @@ function LoginForm() {
             <Button
               variant="contained"
               style={{ backgroundColor: '#000000' }}
-              onClick={handleSignIn}
+              onClick={() => setButtonPressed(true)}
               fullWidth={true}
             >
               Sign In

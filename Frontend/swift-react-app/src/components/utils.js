@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 export const getCookie = (name) => {
   let cookieValue = null;
+  console.log("getCookie");
   if (document.cookie && document.cookie !== '') {
     console.log("Cookies:", document.cookie);
     const cookies = document.cookie.split(';');

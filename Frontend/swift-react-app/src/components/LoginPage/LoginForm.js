@@ -16,24 +16,27 @@ function LoginForm() {
   const [buttonPressed, setButtonPressed] = useState(false);
 
   useEffect(() => {
-    try {
-      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
-        method: 'GET',
-        credentials: 'include'
-      });
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+          method: 'GET',
+          credentials: 'include'
+        });
 
-      const responseData = await response.json();
+        const responseData = await response.json();
 
-      setCsrftoken(responseData.message);
+        setCsrftoken(responseData.message);
 
-    } catch (error) {
-      console.error('Error retrieving CSRF token:', error);
-    }
+        // Check if csrftoken is not an empty string before initiating the sign-in request
+        if (csrftoken !== '') {
+          handleSignIn();
+        }
+      } catch (error) {
+        console.error('Error retrieving CSRF token:', error);
+      }
+    };
 
-    // Check if csrftoken is not an empty string before initiating the sign-in request
-    if (csrftoken !== '') {
-      handleSignIn();
-    }
+    fetchData();
   }, [csrftoken, buttonPressed]);
 
   const handleSignIn = async () => {
@@ -43,7 +46,7 @@ function LoginForm() {
         return;
       }
 
-      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+      const signInResponse = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +56,7 @@ function LoginForm() {
         credentials: 'include'
       });
 
-      const responseData = await response.json();
+      const responseData = await signInResponse.json();
 
       if (responseData.success) {
         console.log('Login successful');
@@ -70,7 +73,6 @@ function LoginForm() {
     }
   };
 
-
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     setError('');
@@ -79,6 +81,10 @@ function LoginForm() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     setError('');
+  };
+
+  const handleSignInButton = () => {
+    setButtonPressed(true);
   };
 
   return (
@@ -96,7 +102,7 @@ function LoginForm() {
               variant="outlined"
               margin="normal"
               fullWidth={true}
-	      required
+              required
             />
             {buttonPressed && email === '' && (
               <p style={{ color: 'red' }}>*Email is required.</p>
@@ -110,7 +116,7 @@ function LoginForm() {
               variant="outlined"
               margin="normal"
               fullWidth={true}
-	      required
+              required
             />
             {buttonPressed && password === '' && (
               <p style={{ color: 'red' }}>*Password is required.</p>
@@ -118,7 +124,7 @@ function LoginForm() {
             <Button
               variant="contained"
               style={{ backgroundColor: '#000000' }}
-              onClick={() => setButtonPressed(true)}
+              onClick={handleSignInButton}
               fullWidth={true}
             >
               Sign In

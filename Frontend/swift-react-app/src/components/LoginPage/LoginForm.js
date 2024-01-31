@@ -34,9 +34,9 @@ function LoginForm() {
 
       const responseData = await response.json();
 
-      console.log("Cookie:", responseData.message);
-
       setCsrftoken(responseData.message);
+
+      console.log("csrftoken: ", csrftoken);
 
     } catch (error) {
       console.error('Error retrieving CSRF token:', error);

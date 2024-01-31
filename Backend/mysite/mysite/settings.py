@@ -35,6 +35,8 @@ CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_HTTPONLY = False
 CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_DOMAIN = '.netlify.app'
+SESSION_COOKIE_DOMAIN = '.netlify.app'
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://swiftly-tasks.netlify.app']
 
@@ -156,5 +158,4 @@ CORS_ALLOW_HEADERS = [
     'Content-Type',
     'Date',
     'X-Api-Version',
-    'x-xsrf-token',
 ]

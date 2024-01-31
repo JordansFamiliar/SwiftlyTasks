@@ -8,7 +8,7 @@ import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
-  const [csrftoken, setCsrftoken] = useState('');
+  //const [csrftoken, setCsrftoken] = useState('');
   //const csrftoken = Cookies.get('csrftoken');
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -33,7 +33,7 @@ function LoginForm() {
 	credentials: 'include'
       });
 
-    setCsrftoken(getCookie('csrftoken'));
+    //setCsrftoken(getCookie('csrftoken'));
 
     } catch (error) {
       console.error('Error retrieving CSRF token:', error);
@@ -54,7 +54,7 @@ function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-XSRF-TOKEN': csrftoken,
+	  'X-XSRF-TOKEN': getCookie('csrftoken'),
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

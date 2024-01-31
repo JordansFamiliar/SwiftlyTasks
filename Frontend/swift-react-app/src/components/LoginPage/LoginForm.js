@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-//import { useCookies } from 'react-cookie';
 import { TextField, Button } from '@mui/material';
 //import Cookies from 'js-cookie';
-//import { getCookie } from '../utils';
+import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
@@ -37,8 +36,7 @@ function LoginForm() {
     }
   };
 
-  const cookieString = document.cookie;
-  console.log("cookies:", cookieString);
+  const csrftoken = getCookie('csrftoken');
 
   const handleSignIn = async () => {
     try {
@@ -54,7 +52,7 @@ function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  //'X-XSRF-TOKEN': csrftoken,
+	  'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

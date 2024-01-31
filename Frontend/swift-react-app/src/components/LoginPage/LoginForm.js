@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, Button } from '@mui/material';
 //import Cookies from 'js-cookie';
 //import { getCookie } from '../utils';
@@ -15,31 +15,7 @@ function LoginForm() {
   const [error, setError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
-          method: 'GET',
-          credentials: 'include'
-        });
-
-        const responseData = await response.json();
-
-        setCsrftoken(responseData.message);
-
-        // Check if csrftoken is not an empty string before initiating the sign-in request
-        if (csrftoken !== '') {
-          handleSignIn();
-        }
-      } catch (error) {
-        console.error('Error retrieving CSRF token:', error);
-      }
-    };
-
-    fetchData();
-  }, [csrftoken, buttonPressed, handleSignIn]);
-
-  const handleSignIn = async () => {
+  const handleSignIn = useCallback(async () => {
     try {
       if (!email || !password) {
         setError('Please fill in all required fields.');
@@ -71,7 +47,31 @@ function LoginForm() {
       console.error('An error occurred during login', error);
       setError('An unexpected error occurred');
     }
-  };
+  }, [csrftoken, email, password, login, navigate]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        const responseData = await response.json();
+
+        setCsrftoken(responseData.message);
+
+        // Check if csrftoken is not an empty string before initiating the sign-in request
+        if (csrftoken !== '') {
+          handleSignIn();
+        }
+      } catch (error) {
+        console.error('Error retrieving CSRF token:', error);
+      }
+    };
+
+    fetchData();
+  }, [csrftoken, handleSignIn]); // Add handleSignIn to the dependency array
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

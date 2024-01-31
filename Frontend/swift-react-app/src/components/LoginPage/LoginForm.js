@@ -40,6 +40,10 @@ function LoginForm() {
     }
   };
 
+  const csrftoken = getCookie('csrftoken');
+
+  console.log("token:", csrftoken);
+
   const handleSignIn = async () => {
     try {
       setButtonPressed(true);
@@ -54,7 +58,7 @@ function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-XSRF-TOKEN': getCookie('csrftoken'),
+	  'X-XSRF-TOKEN': csrftoken,
         },
         body: JSON.stringify({ email, password }),
 	credentials: 'include'

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-7(%&yly)#fmn1*h$0n#d7hs+i3z^$z0vpou)(h-^(b+9ssq4&9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app']
 
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://swiftly-tasks.netlify.app']

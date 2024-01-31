@@ -41,7 +41,7 @@ function LoginForm() {
 
   const csrftoken = cookies.csrftoken;
 
-  console.log("token:", csrftoken);
+  console.log("cookies:", cookies);
 
   const handleSignIn = async () => {
     try {

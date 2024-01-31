@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { TextField, Button } from '@mui/material';
 //import Cookies from 'js-cookie';
-import { getCookie } from '../utils';
+//import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
-  //const [csrftoken, setCsrftoken] = useState('');
-  //const csrftoken = Cookies.get('csrftoken');
+  const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,14 +33,12 @@ function LoginForm() {
 	credentials: 'include'
       });
 
-    //setCsrftoken(getCookie('csrftoken'));
-
     } catch (error) {
       console.error('Error retrieving CSRF token:', error);
     }
   };
 
-  const csrftoken = getCookie('csrftoken');
+  const csrftoken = cookies.csrftoken;
 
   console.log("token:", csrftoken);
 

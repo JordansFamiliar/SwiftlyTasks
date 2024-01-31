@@ -1,6 +1,7 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { CookiesProvider } from 'react-cookie';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -12,9 +13,11 @@ const rootElement = createRoot(document.body);
 rootElement.render(
   <StrictMode>
     <Provider store={store}>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+      <AuthProvider>
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
+      </AuthProvider>
     </Provider>
   </StrictMode>
 );

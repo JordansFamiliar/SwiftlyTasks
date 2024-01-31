@@ -9,6 +9,7 @@ import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
+// eslint-disable-next-line no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');

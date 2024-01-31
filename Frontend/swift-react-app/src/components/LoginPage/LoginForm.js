@@ -37,6 +37,9 @@ function LoginForm() {
     }
   };
 
+  const cookieString = document.cookie;
+  console.log("cookies:", cookieString);
+
   const handleSignIn = async () => {
     try {
       setButtonPressed(true);

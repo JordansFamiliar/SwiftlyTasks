@@ -39,9 +39,9 @@ function LoginForm() {
     }
   };
 
-  const csrftoken = cookies.csrftoken;
+  const csrftoken = cookies.get('csrftoken');
 
-  console.log("cookies:", cookies);
+  console.log("cookie:", csrftoken);
 
   const handleSignIn = async () => {
     try {

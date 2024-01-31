@@ -34,6 +34,8 @@ function LoginForm() {
 
       const responseData = await response.json();
 
+      console.log("Cookie:", responseData.message);
+
       setCsrftoken(responseData.message);
 
     } catch (error) {

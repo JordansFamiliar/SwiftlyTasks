@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+import { useSelector } from 'react-redux';
 
 function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
   const [editedTask, setEditedTask] = useState({...task});
@@ -22,7 +22,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
     setEditedTask((prev) => ({ ...prev, due_date: e.target.value }));
   };
 
-  const csrftoken = getCookie('csrftoken');
+  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
 
   const handleEditTask = async () => {
     try {
@@ -30,7 +30,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': csrftoken,
+          'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify(editedTask),
         credentials: 'include',

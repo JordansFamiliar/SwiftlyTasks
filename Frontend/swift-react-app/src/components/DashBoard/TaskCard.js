@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import styles from './TaskCard.module.css';
-import { getCookie } from '../utils';
+import { useSelector } from 'react-redux';
 import EditTaskForm from '../AddTaskForm/EditTaskForm';
 
 function TaskCard({ task, onDelete, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
-  const csrftoken = getCookie('csrftoken');
+  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
 
   const handleCheckButtonClick = async () => {
     try {
@@ -14,7 +14,7 @@ function TaskCard({ task, onDelete, onEdit }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': csrftoken,
+          'X-CSRFToken': csrftoken,
         },
         credentials: 'include',
       });

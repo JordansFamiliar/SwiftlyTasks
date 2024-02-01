@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { fetchData } from '../utils';
 import { useAuth } from '../../AuthContext';
 
 function AddTaskForm() {
@@ -13,7 +13,7 @@ function AddTaskForm() {
   const [due_date, setDueDate] = useState('');
   const [error, setError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
-  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  const [csrftoken, setCsrftoken] = useState('');
 
   if (!authenticated) {
     navigate('/swiftlytasks/login/');
@@ -42,19 +42,35 @@ function AddTaskForm() {
     setError('');
   };
 
-  const handleAddTask = async () => {
+  useEffect(() => {
+    const fetchDataEffect = async () => {
+      const token = await fetchData();
+      setCsrftoken(token);
+    };
+    fetchDataEffect();
+  }, []);
+
+  const handleAddTask = useCallback(async () => {
     try {
+
+      if (!csrftoken || csrftoken === '') {
+	return;
+      }
+
       const newTask = {
         task_name,
         description,
         priority,
         due_date,
       };
+
       setButtonPressed(true);
+
       if (!task_name || !priority || !due_date) {
         setError('Please fill in all required fields.');
         return;
       }
+
       const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/add_task/',{
         method: 'POST',
         headers: {
@@ -78,7 +94,7 @@ function AddTaskForm() {
       console.error('An error occured ', error);
       setError('An unexpected error occured');
     }
-  };
+  }, [csrftoken, setButtonPressed, navigate]);
 
   return (
     <>

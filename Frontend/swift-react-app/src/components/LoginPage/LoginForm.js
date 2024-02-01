@@ -1,17 +1,13 @@
-import React, { useState, useCallback } from 'react';
-//import { setCsrftoken } from '../../redux/csrftokenSlice';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, Button } from '@mui/material';
-//import { useDispatch, useSelector } from 'react-redux';
-import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
+import { fetchData } from '../utils';
 import './LoginForm.css';
 
 function LoginForm() {
   const { login } = useAuth();
-  //const dispatch = useDispatch();
-  const csrftoken = getCookie('csrftoken');
-  //const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  const [csrftoken, setCsrftoken] = useState('');
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -55,25 +51,13 @@ function LoginForm() {
     }
   }, [csrftoken, email, password, login, navigate]);
 
-//  useEffect(() => {
-//    const fetchData = async () => {
-//      try {
-//        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
-//          method: 'GET',
-//          credentials: 'include'
-//        });
-
-//        const responseData = await response.json();
-
-//        dispatch(setCsrftoken(responseData.message));
-
-//      } catch (error) {
-//        console.error('Error retrieving CSRF token:', error);
-//      }
-//    };
-
-//    fetchData();
-//  }, [dispatch]);
+  useEffect(() => {
+    const fetchDataEffect = async () => {
+      const token = await fetchData();
+      setCsrftoken(token);
+    };
+    fetchDataEffect();
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

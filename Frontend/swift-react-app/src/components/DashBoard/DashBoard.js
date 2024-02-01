@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardContent, Typography, Button } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
 import TaskCard from './TaskCard';
 import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -8,10 +8,9 @@ import { deleteTask, editTask, fetchTasks, setSortBy } from '../../redux/taskSli
 
 
 function Dashboard() {
-  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  const dispatch = useDispatch();
   const tasks = useSelector((state) => state.task.tasks);
   const sortOption = useSelector((state) => state.task.sortBy);
-  const dispatch = useDispatch();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -22,8 +21,7 @@ function Dashboard() {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const storedAuthStatus = localStorage.getItem('authenticated');
-      setAuthenticated(storedAuthStatus === 'true');
+      setAuthenticated(localStorage.getItem('authenticated'));
       setLoading(false);
     };
 
@@ -34,11 +32,7 @@ function Dashboard() {
     const fetchTasksFromServer = async () => {
       try {
         const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/dashboard/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-          },
+          method: 'GET',
           credentials: 'include',
         });
         const data = await response.json();
@@ -55,7 +49,7 @@ function Dashboard() {
         fetchTasksFromServer();
       }
     }
-  }, [csrftoken, navigate, authenticated, loading, dispatch]);
+  }, [navigate, authenticated, loading, dispatch]);
 
   const deleteTaskHandler = (deletedTask) => {
     dispatch(deleteTask({ deletedTask }));

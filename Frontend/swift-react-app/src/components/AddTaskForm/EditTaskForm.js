@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { fetchData } from '../utils';
 
 function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
+  const [csrftoken, setCsrftoken] = useState('');
   const [editedTask, setEditedTask] = useState({...task});
   const [error, setError] = useState(null);
 
@@ -22,10 +23,21 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
     setEditedTask((prev) => ({ ...prev, due_date: e.target.value }));
   };
 
-  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  useEffect(() => {
+    const fetchDataEffect = async () => {
+      const token = await fetchData();
+      setCsrftoken(token);
+    };
+    fetchDataEffect();
+  }, []);
 
-  const handleEditTask = async () => {
+  const handleEditTask = useCallback(async () => {
     try {
+
+      if (!csrftoken || csrftoken === '') {
+	return;
+      }
+
       const response = await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/edit_task/${task.id}/`, {
         method: 'PUT',
         headers: {
@@ -50,7 +62,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
       console.error('An error occurred: ', error);
       setError('An unexpected error occurred');
     }
-  };
+  }, [csrftoken, onEdit, setIsEditing]);
 
   const handleCancel = () => {
     onCancel();

@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
+import { fetchData } from '../utils';
 import styles from './TaskCard.module.css';
-import { useSelector } from 'react-redux';
 import EditTaskForm from '../AddTaskForm/EditTaskForm';
 
 function TaskCard({ task, onDelete, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
-  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  const [csrftoken, setCsrftoken] = useState('');
 
-  const handleCheckButtonClick = async () => {
+  useEffect(() => {
+    const fetchDataEffect = async () => {
+      const token = await fetchData();
+      setCsrftoken(token);
+    };
+    fetchDataEffect();
+  }, []);
+
+  const handleCheckButtonClick = useCallback(async () => {
     try {
+      if (!csrftoken || csrftoken === '') {
+        return;
+      }
       const response = await fetch(`https://swiftly-tasks.vercel.app/swiftlytasks/delete_task/${task.id}/`,{
         method: 'POST',
         headers: {
@@ -30,7 +41,7 @@ function TaskCard({ task, onDelete, onEdit }) {
     } catch (error) {
       console.error('An error occurred during task deletion', error);
     }
-  };
+  }, [csrftoken, onDelete]);
 
   const handleEditButtonClick = () => {
     setIsEditing(true);

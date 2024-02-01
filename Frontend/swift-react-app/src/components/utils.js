@@ -18,7 +18,21 @@ export const getCookie = (name) => {
   return cookieValue;
 };
 
-export const getCSRFTokenFromHeaders = (headers) => {
-  const csrfTokenHeader = headers.get('X-CSRF-Token');
-  return csrfTokenHeader ? csrfTokenHeader : null;
+export const fetchData = async () => {
+  let cookie = null;
+  try {
+    const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    const responseData = await response.json();
+
+    cookie = responseData.message;
+
+  } catch (error) {
+    console.error('Error retrieving CSRF token:', error);
+  }
+  return cookie;
 };
+

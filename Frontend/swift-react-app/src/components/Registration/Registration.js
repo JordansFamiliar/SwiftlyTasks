@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../utils';
 import { useNavigate } from 'react-router-dom';
-import { setCsrftoken } from '../../redux/csrftokenSlice';
 import './Registration.css';
 
 function Registration() {
-  const dispatch = useDispatch();
-  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  const [csrftoken, setCsrftoken] = useState('');
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,24 +14,12 @@ function Registration() {
   const [buttonPressed, setButtonPressed] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
-          method: 'GET',
-          credentials: 'include'
-        });
-
-        const responseData = await response.json();
-
-        dispatch(setCsrftoken(responseData.message));
-
-      } catch (error) {
-        console.error('Error retrieving CSRF token:', error);
-      }
+    const fetchDataEffect = async () => {
+      const token = await fetchData();
+      setCsrftoken(token);
     };
-
-    fetchData();
-  }, [dispatch]);
+    fetchDataEffect();
+  }, []);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -52,6 +38,9 @@ function Registration() {
 
   const handleRegistration = useCallback(async () => {
     try {
+      if (!csrftoken || csrftoken === '') {
+	return;
+      }
       setButtonPressed(true);
       if (!username || !email || !password) {
         setError('Please fill in all required fields.');

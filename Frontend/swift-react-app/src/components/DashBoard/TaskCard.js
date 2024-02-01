@@ -41,7 +41,7 @@ function TaskCard({ task, onDelete, onEdit }) {
     } catch (error) {
       console.error('An error occurred during task deletion', error);
     }
-  }, [csrftoken, onDelete]);
+  }, [csrftoken, onDelete, task]);
 
   const handleEditButtonClick = () => {
     setIsEditing(true);

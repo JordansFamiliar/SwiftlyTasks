@@ -62,7 +62,7 @@ function EditTaskForm({ task, setIsEditing, onCancel, onEdit }) {
       console.error('An error occurred: ', error);
       setError('An unexpected error occurred');
     }
-  }, [csrftoken, onEdit, setIsEditing, editedTask]);
+  }, [csrftoken, onEdit, setIsEditing, editedTask, task.id]);
 
   const handleCancel = () => {
     onCancel();

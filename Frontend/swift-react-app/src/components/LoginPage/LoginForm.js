@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 //import { setCsrftoken } from '../../redux/csrftokenSlice';
 import { TextField, Button } from '@mui/material';
 //import { useDispatch, useSelector } from 'react-redux';
-import { getCookie } from '../../utils';
+import { getCookie } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';

@@ -62,7 +62,7 @@ function Registration() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-	  'X-XSRF-TOKEN': csrftoken,
+	  'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify({ username, email, password }),
 	credentials: 'include'

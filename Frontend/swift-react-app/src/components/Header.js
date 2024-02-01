@@ -4,11 +4,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css';
 import './PopoverStyles.css';
 import { useNavigate } from 'react-router-dom';
-import { getCookie } from './utils';
+import { useSelector } from 'react-redux';
 import { useAuth } from '../AuthContext';
 
 function Header() {
-  const csrftoken = getCookie('csrftoken');
+  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
   const [anchorE1, setAnchorE1] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const { authenticated, logout } = useAuth();
@@ -16,9 +16,9 @@ function Header() {
 
   useEffect(() => {
     // Fetch notifications or any other data needed for the header
-    // You can add your fetch logic here
+    // Add fetch logic here
 
-    // For now, let's assume an empty array for notifications
+    //Assume an empty array for notifications
     setNotifications([]);
   }, [authenticated]);
 
@@ -34,7 +34,7 @@ function Header() {
 
   const handleSignOut = async () => {
     try {
-      const response = await fetch('http://localhost:8000/swiftlytasks/logout/', {
+      const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/logout/', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -56,7 +56,7 @@ function Header() {
 
   return (
     <div className="header">
-      <h1><a href="/swiftlytasks">SWIFTLY TASKS</a></h1>
+      <h1><a href="https://swiftly-tasks.vercel.app/swiftlytasks">SWIFTLY TASKS</a></h1>
       {authenticated && (
         <div className="notification-icon">
           <IconButton onClick={handleIconClick} color="inherit">

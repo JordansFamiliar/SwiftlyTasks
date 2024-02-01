@@ -4,7 +4,6 @@ import { Card, CardContent, Typography, Button } from '@mui/material';
 import TaskCard from './TaskCard';
 import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { setCsrftoken } from '../../redux/csrftokenSlice';
 import { deleteTask, editTask, fetchTasks, setSortBy } from '../../redux/taskSlice';
 
 

@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setAuthenticated(false);
-    // Clear the persisted authentication status
     localStorage.removeItem('authenticated');
   };
 

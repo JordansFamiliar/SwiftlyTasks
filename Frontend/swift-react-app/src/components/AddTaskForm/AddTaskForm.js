@@ -94,7 +94,7 @@ function AddTaskForm() {
       console.error('An error occured ', error);
       setError('An unexpected error occured');
     }
-  }, [csrftoken, setButtonPressed, navigate]);
+  }, [csrftoken, setButtonPressed, navigate, task_name, description, priority, due_date]);
 
   return (
     <>

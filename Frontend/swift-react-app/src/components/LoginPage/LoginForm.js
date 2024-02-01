@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { setCsrftoken } from '../../redux/csrftokenSlice';
 import { TextField, Button } from '@mui/material';
-//import Cookies from 'js-cookie';
-//import { getCookie } from '../utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
 
 function LoginForm() {
   const login = useAuth();
-  const [csrftoken, setCsrftoken] = useState('');
+  const dispatch = useDispatch();
+  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +18,10 @@ function LoginForm() {
 
   const handleSignIn = useCallback(async () => {
     try {
+      if (buttonPressed === false || !csrftoken) {
+	return;
+      }
+
       if (!email || !password) {
         setError('Please fill in all required fields.');
         return;
@@ -47,7 +52,7 @@ function LoginForm() {
       console.error('An error occurred during login', error);
       setError('An unexpected error occurred');
     }
-  }, [csrftoken, login, navigate]);
+  }, [buttonPressed, csrftoken, email, password, login, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,19 +64,15 @@ function LoginForm() {
 
         const responseData = await response.json();
 
-        setCsrftoken(responseData.message);
+        dispatch(setCsrftoken(responseData.message));
 
-        // Check if csrftoken is not an empty string before initiating the sign-in request
-        if (csrftoken !== '') {
-          handleSignIn();
-        }
       } catch (error) {
         console.error('Error retrieving CSRF token:', error);
       }
     };
 
     fetchData();
-  }, [csrftoken, handleSignIn]); // Add handleSignIn to the dependency array
+  }, [dispatch]);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

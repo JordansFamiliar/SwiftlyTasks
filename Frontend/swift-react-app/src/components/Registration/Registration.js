@@ -1,17 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TextField, Button } from '@mui/material';
-import { getCookie } from '../utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setCsrftoken } from '../../redux/csrftokenSlice';
 import './Registration.css';
 
 function Registration() {
-  const csrftoken = getCookie('csrftoken');
+  const dispatch = useDispatch();
+  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        const responseData = await response.json();
+
+        dispatch(setCsrftoken(responseData.message));
+
+      } catch (error) {
+        console.error('Error retrieving CSRF token:', error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -28,7 +50,7 @@ function Registration() {
     setError('');
   };
 
-  const handleRegistration = async () => {
+  const handleRegistration = useCallback(async () => {
     try {
       setButtonPressed(true);
       if (!username || !email || !password) {
@@ -59,62 +81,66 @@ function Registration() {
       console.error('An error occurred during registration', error);
       setError('An unexpected error occurred');
     }
-  };
+  }, [csrftoken, username, email, password, navigate]);
 
   return (
-    <div className="form-container">
-      <h2>Register Account</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form className="form">
-        <TextField
-          label="Username"
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-          variant="outlined"
-          margin="normal"
-          fullWidth={true}
-	  required
-        />
-        {buttonPressed && username === '' && (
-          <p style={{ color: 'red' }}>Username is required.</p>
-        )}
-        <TextField
-          label="Email"
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          variant="outlined"
-          margin="normal"
-          fullWidth={true}
-	  required
-        />
-        {buttonPressed && email === '' && (
-          <p style={{ color: 'red' }}>Email is required.</p>
-        )}
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          variant="outlined"
-          margin="normal"
-          fullWidth={true}
-	  required
-        />
-        {buttonPressed && password === '' && (
-          <p style={{ color: 'red' }}>Password is required.</p>
-        )}
-        <Button
-          variant="contained"
-          style={{ backgroundColor: '#000000' }}
-          onClick={handleRegistration}
-          fullWidth={true}
-        >
-          Register
-        </Button>
-      </form>
-    </div>
+    <main>
+      <section id="center-column">
+        <div className="form-container">
+          <h2>Register Account</h2>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <form className="form">
+            <TextField
+              label="Username"
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+              variant="outlined"
+              margin="normal"
+              fullWidth={true}
+	      required
+            />
+            {buttonPressed && username === '' && (
+              <p style={{ color: 'red' }}>Username is required.</p>
+            )}
+            <TextField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              variant="outlined"
+              margin="normal"
+              fullWidth={true}
+	      required
+            />
+            {buttonPressed && email === '' && (
+              <p style={{ color: 'red' }}>Email is required.</p>
+            )}
+            <TextField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              variant="outlined"
+              margin="normal"
+              fullWidth={true}
+	      required
+            />
+            {buttonPressed && password === '' && (
+              <p style={{ color: 'red' }}>Password is required.</p>
+            )}
+            <Button
+              variant="contained"
+              style={{ backgroundColor: '#000000' }}
+              onClick={handleRegistration}
+              fullWidth={true}
+            >
+              Register
+            </Button>
+          </form>
+        </div>
+      </section>
+    </main>
   );
 }
 

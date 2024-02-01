@@ -41,7 +41,6 @@ function LoginForm() {
 
       if (responseData.success) {
         console.log('Login successful');
-        localStorage.setItem('authenticated', 'true');
         login();
         navigate('/swiftlytasks/dashboard/');
         setError('');

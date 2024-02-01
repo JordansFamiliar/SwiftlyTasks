@@ -22,6 +22,9 @@ function Header() {
     setNotifications([]);
   }, [authenticated]);
 
+  if (!csrftoken || csrftoken === '') {
+    logout();
+  }
   const handleIconClick = (event) => {
     setAnchorE1(event.currentTarget);
   };
@@ -56,7 +59,7 @@ function Header() {
 
   return (
     <div className="header">
-      <h1><a href="https://swiftly-tasks.vercel.app/swiftlytasks">SWIFTLY TASKS</a></h1>
+      <h1><Link to="/swiftlytasks">SWIFTLY TASKS</Link></h1>
       {authenticated && (
         <div className="notification-icon">
           <IconButton onClick={handleIconClick} color="inherit">

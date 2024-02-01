@@ -9,7 +9,7 @@ import './LoginForm.css';
 
 function LoginForm() {
   const { login } = useAuth();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const csrftoken = getCookie('csrftoken');
   //const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
   const navigate = useNavigate();

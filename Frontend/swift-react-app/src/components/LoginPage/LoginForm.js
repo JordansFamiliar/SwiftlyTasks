@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { setCsrftoken } from '../../redux/csrftokenSlice';
+//import { setCsrftoken } from '../../redux/csrftokenSlice';
 import { TextField, Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+//import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './LoginForm.css';
@@ -9,7 +10,8 @@ import './LoginForm.css';
 function LoginForm() {
   const { login } = useAuth();
   const dispatch = useDispatch();
-  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  const csrftoken = getCookie('csrftoken');
+  //const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -53,25 +55,25 @@ function LoginForm() {
     }
   }, [csrftoken, email, password, login, navigate]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
-          method: 'GET',
-          credentials: 'include'
-        });
+//  useEffect(() => {
+//    const fetchData = async () => {
+//      try {
+//        const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/login/', {
+//          method: 'GET',
+//          credentials: 'include'
+//        });
 
-        const responseData = await response.json();
+//        const responseData = await response.json();
 
-        dispatch(setCsrftoken(responseData.message));
+//        dispatch(setCsrftoken(responseData.message));
 
-      } catch (error) {
-        console.error('Error retrieving CSRF token:', error);
-      }
-    };
+//      } catch (error) {
+//        console.error('Error retrieving CSRF token:', error);
+//      }
+//    };
 
-    fetchData();
-  }, [dispatch]);
+//    fetchData();
+//  }, [dispatch]);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

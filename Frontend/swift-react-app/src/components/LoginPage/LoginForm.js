@@ -14,11 +14,10 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const [buttonPressed, setButtonPressed] = useState(false);
 
   const handleSignIn = useCallback(async () => {
     try {
-      if (buttonPressed === false || !csrftoken) {
+      if (!csrftoken) {
 	return;
       }
 
@@ -52,7 +51,7 @@ function LoginForm() {
       console.error('An error occurred during login', error);
       setError('An unexpected error occurred');
     }
-  }, [buttonPressed, csrftoken, email, password, login, navigate]);
+  }, [csrftoken, email, password, login, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,10 +81,6 @@ function LoginForm() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     setError('');
-  };
-
-  const handleSignInButton = () => {
-    setButtonPressed(true);
   };
 
   return (
@@ -125,7 +120,7 @@ function LoginForm() {
             <Button
               variant="contained"
               style={{ backgroundColor: '#000000' }}
-              onClick={handleSignInButton}
+              onClick={handleSignIn}
               fullWidth={true}
             >
               Sign In

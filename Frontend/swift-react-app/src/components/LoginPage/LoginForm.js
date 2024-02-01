@@ -14,6 +14,7 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [buttonPressed, setButtonPressed] = useState(false);
 
   const handleSignIn = useCallback(async () => {
     try {
@@ -83,6 +84,11 @@ function LoginForm() {
     setError('');
   };
 
+  const handleButtonPressed = () => {
+    setButtonPressed(true)
+    handleSignIn()
+  }
+
   return (
     <main>
       <section id="center-column">
@@ -120,7 +126,7 @@ function LoginForm() {
             <Button
               variant="contained"
               style={{ backgroundColor: '#000000' }}
-              onClick={handleSignIn}
+              onClick={handleButtonPressed}
               fullWidth={true}
             >
               Sign In

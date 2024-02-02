@@ -14,10 +14,10 @@ function Header() {
   const { authenticated, logout } = useAuth();
   const navigate = useNavigate();
 
-  const fetchDataEffect = async () => {
+  const fetchDataEffect = useCallback(async () => {
     const token = await fetchData();
     setCsrftoken(token);
-  };
+  }, [setCsrftoken]);
 
   useEffect(() => {
     // Fetch notifications or any other data needed for the header

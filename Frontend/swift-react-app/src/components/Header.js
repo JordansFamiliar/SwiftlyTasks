@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { IconButton, Popover, Button } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css';
@@ -37,10 +37,14 @@ function Header() {
 
   const open = Boolean(anchorE1);
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     try {
 
       await fetchDataEffect();
+
+      if (!csrftoken || csrftoken === '') {
+	return;
+      }
 
       const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/logout/', {
         method: 'POST',
@@ -60,7 +64,7 @@ function Header() {
     } catch (error) {
       console.error('An error occurred during logout', error);
     }
-  };
+  }, [fetchDataEffect, logout]);
 
   useEffect(() => {
   // Call fetchDataEffect when component mounts

@@ -69,7 +69,7 @@ function Header() {
   useEffect(() => {
   // Call fetchDataEffect when component mounts
     fetchDataEffect();
-  }, []);
+  }, [fetchDataEffect]);
 
   return (
     <div className="header">

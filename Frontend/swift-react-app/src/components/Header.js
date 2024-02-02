@@ -4,7 +4,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css';
 import './PopoverStyles.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchData } from 'utils';
+import { fetchData } from './utils';
 import { useAuth } from '../AuthContext';
 
 function Header() {

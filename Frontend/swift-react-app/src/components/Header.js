@@ -64,7 +64,7 @@ function Header() {
     } catch (error) {
       console.error('An error occurred during logout', error);
     }
-  }, [csrftoken, fetchDataEffect, logout]);
+  }, [csrftoken, fetchDataEffect, logout, navigate]);
 
   useEffect(() => {
   // Call fetchDataEffect when component mounts

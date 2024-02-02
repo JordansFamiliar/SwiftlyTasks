@@ -14,6 +14,11 @@ function Header() {
   const { authenticated, logout } = useAuth();
   const navigate = useNavigate();
 
+  const fetchDataEffect = async () => {
+    const token = await fetchData();
+    setCsrftoken(token);
+  };
+
   useEffect(() => {
     // Fetch notifications or any other data needed for the header
     // Add fetch logic here
@@ -58,11 +63,6 @@ function Header() {
   };
 
   useEffect(() => {
-    const fetchDataEffect = async () => {
-      const token = await fetchData();
-      setCsrftoken(token);
-    };
-
   // Call fetchDataEffect when component mounts
     fetchDataEffect();
   }, []);

@@ -4,11 +4,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css';
 import './PopoverStyles.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { fetchData } from 'utils';
 import { useAuth } from '../AuthContext';
 
 function Header() {
-  const csrftoken = useSelector((state) => state.csrftoken.csrftoken);
+  const [csrftoken, setCsrftoken] = useState('');
   const [anchorE1, setAnchorE1] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const { authenticated, logout } = useAuth();
@@ -22,9 +22,6 @@ function Header() {
     setNotifications([]);
   }, [authenticated]);
 
-  if (!csrftoken || csrftoken === '') {
-    logout();
-  }
   const handleIconClick = (event) => {
     setAnchorE1(event.currentTarget);
   };
@@ -37,6 +34,9 @@ function Header() {
 
   const handleSignOut = async () => {
     try {
+
+      await fetchDataEffect();
+
       const response = await fetch('https://swiftly-tasks.vercel.app/swiftlytasks/logout/', {
         method: 'POST',
         credentials: 'include',
@@ -56,6 +56,16 @@ function Header() {
       console.error('An error occurred during logout', error);
     }
   };
+
+  useEffect(() => {
+    const fetchDataEffect = async () => {
+      const token = await fetchData();
+      setCsrftoken(token);
+    };
+
+  // Call fetchDataEffect when component mounts
+    fetchDataEffect();
+  }, []);
 
   return (
     <div className="header">
